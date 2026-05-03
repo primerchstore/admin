@@ -124,3 +124,8 @@ export const ProductPatchResponse = {
 export const ProductDeleteResponse = {
   id: true,
 } as const satisfies Prisma.ProductSelect;
+
+export const ProductUtilGetTotalStockResponse = {
+  id: true,
+  name: true,
+} as const satisfies Prisma.ProductSelect;
