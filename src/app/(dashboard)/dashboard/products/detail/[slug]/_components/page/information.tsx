@@ -1,3 +1,5 @@
+import EmptyData from "@/app/_components/empty-data";
+import { Badge } from "@/components/ui/badge";
 import {
   Field,
   FieldDescription,
@@ -10,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ProductGetResponseType } from "@/fromServer/helpers/types/product.type";
 import { cn } from "@/lib/utils";
-import { PencilEdit01FreeIcons } from "@hugeicons/core-free-icons";
+import { PencilEdit01FreeIcons, Tag } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 export default function ProductInformation({
@@ -53,6 +55,21 @@ export default function ProductInformation({
                 disabled
               />
             </Field>
+          </Field>
+
+          <Field>
+            <FieldLabel htmlFor="product-tags">Product Tags</FieldLabel>
+            {data?.tags.length === 0 && <EmptyData title="Tag" />}
+            {data?.tags && data.tags.length > 0 && (
+              <div className="flex justify-start items-start gap-1">
+                {data.tags.map((item, index: number) => (
+                  <Badge key={index}>
+                    <HugeiconsIcon icon={Tag} />
+                    {item.tag.name}
+                  </Badge>
+                ))}
+              </div>
+            )}
           </Field>
 
           <Field className="flex-1 flex flex-col justify-start items-stretch">

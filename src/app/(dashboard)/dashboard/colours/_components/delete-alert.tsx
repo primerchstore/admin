@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { ColourQueryResponseType } from "@/fromServer/helpers/types/colour.type";
+import { SizeQueryResponseType } from "@/fromServer/helpers/types/size.type";
 import { Trash } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { toast } from "sonner";
@@ -20,7 +20,7 @@ export default function DeleteColourAlert({
   item,
   refetch,
 }: {
-  item: ColourQueryResponseType["query"][number];
+  item: SizeQueryResponseType["query"][number];
   refetch?: () => void;
 }) {
   const { mutate } = useDeleteSizes();
@@ -35,7 +35,7 @@ export default function DeleteColourAlert({
         <AlertDialogHeader>
           <AlertDialogTitle>Delete {item.name}</AlertDialogTitle>
           <AlertDialogDescription>
-            All the variant that has relation with this colour, will be set
+            All the variant that has relation with this size, will be set
             undefined. You can't undo this action
           </AlertDialogDescription>
         </AlertDialogHeader>
@@ -46,7 +46,7 @@ export default function DeleteColourAlert({
               mutate(item.id, {
                 onSuccess: () => {
                   refetch?.();
-                  toast.success("Delete colour success");
+                  toast.success("Delete size success");
                 },
               });
             }}
