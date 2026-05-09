@@ -1,3 +1,4 @@
+import DeleteProductAlert from "@/app/(dashboard)/dashboard/products/_components/delete-alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,8 +14,12 @@ import {
   CircleIcon,
   Clock,
   Eye,
+  FemaleSymbolFreeIcons,
+  GridIcon,
   ImageDelete01Icon,
+  MaleSymbolFreeIcons,
   PencilEditIcon,
+  SquaresExcludeFreeIcons,
   Trash,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -34,6 +39,36 @@ export const productColumns = [
   columnHelper.accessor("name", {
     header: "Name",
     cell: (info) => info.getValue(),
+  }),
+  columnHelper.accessor("category", {
+    header: "Category",
+    cell: (info) => {
+      return (
+        <Badge variant="outline">
+          <HugeiconsIcon icon={GridIcon} />
+          {info.getValue()?.name || "Unset"}
+        </Badge>
+      );
+    },
+  }),
+  columnHelper.accessor("gender", {
+    header: "Gender",
+    cell: (info) => {
+      return (
+        <Badge variant="outline" className="lowercase">
+          <HugeiconsIcon
+            icon={
+              info.getValue() === "MEN"
+                ? MaleSymbolFreeIcons
+                : info.getValue() === "WOMEN"
+                  ? FemaleSymbolFreeIcons
+                  : SquaresExcludeFreeIcons
+            }
+          />
+          {info.getValue()}
+        </Badge>
+      );
+    },
   }),
 
   columnHelper.display({
@@ -145,8 +180,7 @@ export const productColumns = [
   columnHelper.display({
     id: "actions",
     header: "Actions",
-    cell: ({ row, table }) => {
-      const { refetch } = table.options.meta ?? {};
+    cell: ({ row }) => {
       const data = row.original;
       return (
         <div className="flex justify-start items-center gap-1">
@@ -155,13 +189,13 @@ export const productColumns = [
               <HugeiconsIcon icon={Eye} />
             </Link>
           </Button>
-          <Button size="icon-sm">
-            <HugeiconsIcon icon={PencilEditIcon} />
+          <Button size="icon-sm" asChild>
+            <a href={`/dashboard/products/update/${data.id}`}>
+              <HugeiconsIcon icon={PencilEditIcon} />
+            </a>
           </Button>
 
-          <Button variant="destructive" size="icon-sm">
-            <HugeiconsIcon icon={Trash} />
-          </Button>
+          <DeleteProductAlert item={data} />
         </div>
       );
     },

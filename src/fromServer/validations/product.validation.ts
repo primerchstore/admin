@@ -7,6 +7,7 @@ export class ProductValidation {
   static QUERY = z.object({
     q: z.string().optional(),
     category: z.string().optional(),
+    gender: z.enum(Gender).optional(),
     tags: z.preprocess(
       (val) =>
         val === undefined ? undefined : Array.isArray(val) ? val : [val],
@@ -32,7 +33,7 @@ export class ProductValidation {
       .transform((val) => (val === "" ? undefined : val)),
     basePrice: z.number().nonnegative(),
     categoryId: z.string().optional(),
-    gender: z.enum(Gender).optional(),
+    gender: z.enum(Gender).nullable().optional(),
     isActive: z.boolean().default(true),
     tags: z.array(z.string()).optional(),
     addedMedias: z.array(z.string()).optional(),
@@ -47,7 +48,7 @@ export class ProductValidation {
       .nullable()
       .transform((val) => (val === "" ? undefined : val)),
     basePrice: z.number().nonnegative().optional(),
-    gender: z.enum(Gender).optional(),
+    gender: z.enum(Gender).nullable().optional(),
     categoryId: z.string().optional(),
     isActive: z.boolean().optional(),
     tags: z.array(z.string()).optional(),

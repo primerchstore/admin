@@ -21,6 +21,8 @@ export default function Page() {
     sort,
     take,
     q,
+    category,
+    gender,
   } = useProductPageStore();
   const { data, isLoading, refetch } = useQueryProduct({
     q,
@@ -28,6 +30,8 @@ export default function Page() {
     page,
     sort,
     take,
+    category,
+    gender,
   });
 
   useEffect(() => {
@@ -41,7 +45,13 @@ export default function Page() {
   }, [data]);
 
   if (isLoading) return <LoadingData />;
-  if (!validateQueryResult(data) && data?.result?.query?.length === 0)
-    return <EmptyData title="Size" icon={Palette} url="/dashboard/sizes/add" />;
+  if (validateQueryResult(data) && data?.result?.query?.length === 0)
+    return (
+      <EmptyData
+        title="Product"
+        icon={Palette}
+        url="/dashboard/products/create"
+      />
+    );
   return <ProductTable refetch={refetch} data={data?.result?.query} />;
 }

@@ -1,5 +1,5 @@
 "use client";
-import { usePostMedia } from "@/app/(dashboard)/dashboard/medias/add/_components/query";
+import { usePostMediaBulk } from "@/app/(dashboard)/dashboard/medias/add/_components/query";
 import {
   FileEntry,
   UploadStatus,
@@ -69,7 +69,7 @@ export default function BulkUpload() {
     });
   }, []);
 
-  const { mutate, isPending } = usePostMedia(entries, setEntries, router);
+  const { mutate, isPending } = usePostMediaBulk(entries, setEntries, router);
 
   const handleUpload = () => {
     const pendingIds = entries

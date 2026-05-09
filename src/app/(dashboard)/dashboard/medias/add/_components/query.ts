@@ -1,11 +1,38 @@
 import { FileEntry } from "@/app/(dashboard)/dashboard/medias/add/_components/type";
+import { ApiResponse } from "@/fromServer/helpers/types/api.type";
+import { MediaPostResponseType } from "@/fromServer/helpers/types/media.type";
 import { serverUrl } from "@/lib/constant";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
 
-export const usePostMedia = (
+export const usePostMedia = (): UseMutationResult<
+  ApiResponse & {
+    result?: MediaPostResponseType;
+  },
+  any,
+  File,
+  unknown
+> => {
+  return useMutation({
+    mutationFn: async (file: File) => {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const res = await fetch(`${serverUrl}/api/admin/medias`, {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
+
+      const data = await res.json();
+      return data;
+    },
+  });
+};
+
+export const usePostMediaBulk = (
   entries: FileEntry[],
   setEntries: Dispatch<SetStateAction<FileEntry[]>>,
   router: AppRouterInstance,

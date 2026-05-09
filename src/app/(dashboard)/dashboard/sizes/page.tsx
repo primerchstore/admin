@@ -41,7 +41,9 @@ export default function Page() {
   }, [data]);
 
   if (isLoading) return <LoadingData />;
-  if (!validateQueryResult(data) && data?.result?.query?.length === 0)
-    return <EmptyData title="Size" icon={Palette} url="/dashboard/sizes/add" />;
+  if (validateQueryResult(data) && data?.result?.query?.length === 0)
+    return (
+      <EmptyData title="Size" icon={Palette} url="/dashboard/sizes/create" />
+    );
   return <SizeTable refetch={refetch} data={data?.result?.query} />;
 }

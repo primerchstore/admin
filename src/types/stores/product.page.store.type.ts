@@ -1,3 +1,4 @@
+import { Gender } from "@/fromServer/generated/prisma";
 import { ProductQueryValidationType } from "@/fromServer/helpers/types/product.type";
 
 type SetProductPageStoreType = {
@@ -10,7 +11,8 @@ type SetProductPageStoreType = {
   setNext: (val: boolean) => void;
   setPrev: (val: boolean) => void;
   setQ: (val: string) => void;
-  setCategory: (val: string) => void;
+  setCategory: (val: string | undefined) => void;
+  setGender: (val: Gender | undefined) => void;
   setTags: (val: string[]) => void;
 };
 

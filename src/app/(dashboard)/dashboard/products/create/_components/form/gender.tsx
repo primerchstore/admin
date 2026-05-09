@@ -9,21 +9,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Gender } from "@/fromServer/generated/prisma";
+import { GENDERS } from "@/types/gender.type";
 import { Dispatch, SetStateAction } from "react";
-
-const GENDERS: Gender[] = ["MEN", "WOMEN", "UNISEX"];
 
 export default function InputGender({
   gender,
 }: {
-  gender: { value: Gender; setValue: Dispatch<SetStateAction<Gender>> };
+  gender: {
+    value: Gender | null;
+    setValue: Dispatch<SetStateAction<Gender | null>>;
+  };
 }) {
   return (
     <Field className="flex-1">
       <FieldLabel htmlFor="product-name">Set Gender</FieldLabel>
       <Select
-        defaultValue={gender.value}
-        onValueChange={(e) => gender.setValue(e as Gender)}
+        defaultValue={gender.value || "unset"}
+        onValueChange={(e) =>
+          gender.setValue(e === "unset" ? null : (e as Gender))
+        }
       >
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select Gender" />
@@ -36,6 +40,7 @@ export default function InputGender({
                 {item}
               </SelectItem>
             ))}
+            <SelectItem value="unset">Unset</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>

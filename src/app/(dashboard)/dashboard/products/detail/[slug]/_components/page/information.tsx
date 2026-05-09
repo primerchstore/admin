@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Gender } from "@/fromServer/generated/prisma";
 import { ProductGetResponseType } from "@/fromServer/helpers/types/product.type";
 import { cn } from "@/lib/utils";
 import { PencilEdit01FreeIcons, Tag } from "@hugeicons/core-free-icons";
@@ -42,6 +43,26 @@ export default function ProductInformation({
             <Field className="flex-1">
               <FieldLabel htmlFor="product-name">Product Name</FieldLabel>
               <Input id="product-name" value={data?.name} required disabled />
+            </Field>
+            <Field className="flex-1">
+              <FieldLabel htmlFor="product-name">Gender</FieldLabel>
+              <Input
+                id="product-name"
+                value={data?.gender as Gender}
+                required
+                disabled
+              />
+            </Field>
+          </Field>
+          <Field orientation="responsive">
+            <Field className="flex-1">
+              <FieldLabel htmlFor="product-name">Category</FieldLabel>
+              <Input
+                id="product-name"
+                value={data?.category?.name ?? "Unset"}
+                required
+                disabled
+              />
             </Field>
 
             <Field className="flex-1">

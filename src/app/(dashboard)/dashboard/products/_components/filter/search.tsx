@@ -12,10 +12,7 @@ export default function ProductSearch() {
       <Button size="icon" variant="outline">
         <HugeiconsIcon icon={Search} />
       </Button>
-      <Input
-        onChange={(e) => setQ(e.target.value)}
-        placeholder="Id, Name, Code"
-      />
+      <Input onChange={(e) => setQ(e.target.value)} placeholder="Id, Name" />
     </ButtonGroup>
   );
 }

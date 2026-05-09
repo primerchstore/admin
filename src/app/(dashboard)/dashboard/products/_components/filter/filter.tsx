@@ -1,3 +1,5 @@
+import ProductCategory from "@/app/(dashboard)/dashboard/products/_components/filter/category";
+import ProductGender from "@/app/(dashboard)/dashboard/products/_components/filter/gender";
 import ProductOrder from "@/app/(dashboard)/dashboard/products/_components/filter/order";
 import ProductSearch from "@/app/(dashboard)/dashboard/products/_components/filter/search";
 import ProductSort from "@/app/(dashboard)/dashboard/products/_components/filter/sort";
@@ -13,6 +15,12 @@ export function ProductFilter() {
         <ProductSearch />
       </div>
       <div className="hidden md:flex">
+        <ProductCategory />
+      </div>
+      <div className="hidden md:flex">
+        <ProductGender />
+      </div>
+      <div className="hidden md:flex">
         <ProductSort />
       </div>
       <div className="hidden md:flex">
@@ -22,7 +30,7 @@ export function ProductFilter() {
   );
 }
 
-export function SizeFilterSheet() {
+export function ProductFilterSheet() {
   return (
     <Sheet>
       <SheetTrigger className="md:hidden ml-auto">
@@ -33,6 +41,8 @@ export function SizeFilterSheet() {
       <SheetContent>
         <div className="flex w-full flex-col py-20 px-2 justify-start items-center gap-2">
           <ProductSearch />
+          <ProductCategory />
+          <ProductGender />
           <ProductSort />
           <ProductOrder />
         </div>

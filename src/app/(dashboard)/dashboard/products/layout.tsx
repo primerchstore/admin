@@ -1,7 +1,10 @@
 "use client";
 
+import {
+  ProductFilter,
+  ProductFilterSheet,
+} from "@/app/(dashboard)/dashboard/products/_components/filter/filter";
 import ProductPagination from "@/app/(dashboard)/dashboard/products/_components/pagination";
-import { SizeFilterSheet } from "@/app/(dashboard)/dashboard/sizes/_components/filter/filter";
 import { PageBreadcrumb } from "@/app/_components/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -20,12 +23,16 @@ export default function Layout({ children }: { children: ReactNode }) {
         <header className="p-4 flex justify-between gap-1 items-center">
           <PageBreadcrumb pathname={pathname} />
           {pathname === "/dashboard/products" && (
-            <Button asChild>
-              <Link href={`/dashboard/products/create`}>
-                <HugeiconsIcon icon={Plus} />
-                <span className="hidden md:inline">Add item</span>
-              </Link>
-            </Button>
+            <>
+              <ProductFilter />
+              <ProductFilterSheet />
+              <Button asChild>
+                <Link href={`/dashboard/products/create`}>
+                  <HugeiconsIcon icon={Plus} />
+                  <span className="hidden md:inline">Add item</span>
+                </Link>
+              </Button>
+            </>
           )}
           {pathname.includes("/products/detail") && (
             <Button asChild>

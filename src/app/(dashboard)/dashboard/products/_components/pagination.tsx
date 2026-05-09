@@ -27,7 +27,7 @@ export default function ProductPagination() {
           onClick={handlePrev}
           disabled={!hasPrev}
           size="icon"
-          aria-label="Previews Page"
+          aria-label="Previous Page"
         >
           <HugeiconsIcon icon={ArrowLeft} />
         </Button>

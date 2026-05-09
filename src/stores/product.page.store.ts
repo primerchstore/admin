@@ -1,4 +1,3 @@
-import { ColourPageStoreType } from "@/types/stores/colour.page.store.type";
 import { ProductPageStoreType } from "@/types/stores/product.page.store.type";
 import { create } from "zustand";
 
@@ -25,4 +24,5 @@ export const useProductPageStore = create<ProductPageStoreType>((set) => ({
   setPage: (val) => set({ page: val }),
   setSort: (val) => set({ sort: val }),
   setTake: (val) => set({ take: val }),
+  setGender: (val) => set({ gender: val }),
 }));

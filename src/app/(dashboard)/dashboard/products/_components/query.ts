@@ -1,15 +1,22 @@
 import { ApiResponse } from "@/fromServer/helpers/types/api.type";
 import {
+  ProductPatchValidationType,
   ProductPostValidationType,
   ProductQueryResponseType,
   ProductQueryValidationType,
 } from "@/fromServer/helpers/types/product.type";
 import { toParams } from "@/helpers/query/params-generator";
 import { serverUrl } from "@/lib/constant";
-import { useMutation, useQuery, UseQueryResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  UseQueryResult,
+} from "@tanstack/react-query";
 
 export const useQueryProduct = (
   query?: ProductQueryValidationType,
+  enabled?: boolean,
 ): UseQueryResult<
   ApiResponse & {
     result?: ProductQueryResponseType;
@@ -28,6 +35,7 @@ export const useQueryProduct = (
       const data = await response.json();
       return data;
     },
+    enabled,
   });
 };
 
@@ -44,7 +52,12 @@ export const useDeleteProduct = () => {
   });
 };
 
-export const usePostProduct = () => {
+export const usePostProduct = (): UseMutationResult<
+  ApiResponse,
+  any,
+  ProductPostValidationType,
+  unknown
+> => {
   return useMutation({
     mutationFn: async (body: ProductPostValidationType) => {
       const response = await fetch(`${serverUrl}/api/admin/products`, {
@@ -64,7 +77,7 @@ export const usePostProduct = () => {
 export const usePatchProduct = () => {
   return useMutation({
     mutationFn: async (bodyWithId: {
-      body: ProductPostValidationType;
+      body: ProductPatchValidationType;
       id: string;
     }) => {
       const response = await fetch(

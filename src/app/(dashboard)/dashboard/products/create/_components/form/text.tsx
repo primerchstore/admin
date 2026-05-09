@@ -8,8 +8,8 @@ export function NameInput({
   name,
 }: {
   name: {
-    value: string | undefined;
-    setValue: Dispatch<SetStateAction<string | undefined>>;
+    value: string;
+    setValue: Dispatch<SetStateAction<string>>;
   };
 }) {
   return (
@@ -18,10 +18,6 @@ export function NameInput({
       <Input
         defaultValue={name.value}
         onChange={(e) => {
-          if (e.target.value === "") {
-            name.setValue(undefined);
-            return;
-          }
           name.setValue(e.target.value);
         }}
         id="product-name"
@@ -55,6 +51,32 @@ export function DescriptionInput({
         className={cn("", "flex-1")}
         id="product-description"
         placeholder="e.g This product made from highest quality"
+      />
+    </Field>
+  );
+}
+
+export function PriceInput({
+  price,
+}: {
+  price: {
+    value: number | undefined;
+    setValue: Dispatch<SetStateAction<number | undefined>>;
+  };
+}) {
+  return (
+    <Field className="flex-1">
+      <FieldLabel htmlFor="product-base-price">Product Base Price</FieldLabel>
+      <Input
+        defaultValue={price.value}
+        id="product-base-price"
+        onChange={(e) => {
+          const value = Number(e.target.value);
+          price.setValue(value);
+        }}
+        type="number"
+        placeholder="e.g 100 (in dollar)"
+        required
       />
     </Field>
   );

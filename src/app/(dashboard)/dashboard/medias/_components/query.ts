@@ -1,5 +1,7 @@
 import { ApiResponse } from "@/fromServer/helpers/types/api.type";
 import {
+  MediaGetResponseType,
+  MediaGetValidationType,
   MediaQueryResponseType,
   MediaQueryValidationType,
 } from "@/fromServer/helpers/types/media.type";
@@ -20,6 +22,29 @@ export const useQueryMedia = (
     queryFn: async () => {
       const response = await fetch(
         `${serverUrl}/api/admin/medias/query?${toParams(query ?? {})}`,
+        {
+          credentials: "include",
+        },
+      );
+      const data = await response.json();
+      return data;
+    },
+  });
+};
+
+export const useGetMedia = (
+  identifier: MediaGetValidationType,
+): UseQueryResult<
+  ApiResponse & {
+    result?: MediaGetResponseType;
+  },
+  Error
+> => {
+  return useQuery({
+    queryKey: ["medias", "get", identifier],
+    queryFn: async () => {
+      const response = await fetch(
+        `${serverUrl}/api/admin/medias/get?by=${identifier.by}&value=${identifier.value}`,
         {
           credentials: "include",
         },
